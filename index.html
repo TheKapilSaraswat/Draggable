@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="stylesheet" href="styles.css"> -->
+        <style>
+            .outer_div{
+                margin: 0px 380px;
+                padding: 20px;
+                display: flex;
+                align-self: center;
+            }
+            .choice{
+                box-shadow: 0 3px 6px rgba(9,30,66,.03), 0 2px 4px rgba(9,30,66,.08);
+                border: 1px solid #dfe1e6;
+                display: inline-block;
+                padding: 20px 24px 20px 24px;
+                border-radius: 12px;
+                width: 100px;
+                height: 300px;
+                margin: 50px;
+                justify-content: center;
+                align-self: center;
+            }
+            p{
+                background-color: red;
+                display: flex;
+                width: max-content;
+                border-radius: 2px;
+                margin-bottom: 5px;
+                padding: 4px;
+                color: white;
+            }
+            button{
+                display: flex;
+                margin: 2px auto;
+            }
+            h1{
+                visibility: hidden;
+                background-color: blueviolet;
+                color: white;
+                align-self: center;
+                display: flex;
+                width: fit-content;
+                padding: 4px;
+                border-radius: 2px;
+                margin: 3px auto;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>ITEM DROPPED</h1>
+        <div class="outer_div">
+            <div class="choice">
+                <p draggable="true">A</p>
+                <p draggable="true">B</p>   
+                <p draggable="true">C</p>
+                <p draggable="true">D</p>
+                <p draggable="true">E</p>
+                <p draggable="true">F</p> 
+            </div>
+            <div class="choice">
+    
+            </div>
+        </div>
+        <button onclick="reset()">RESET</button>
+    </body>
+    <script type="text/javascript">
+        var p=document.getElementsByTagName('p');
+        var choice=document.getElementsByClassName('choice ');
+        var dragItem=null;
+        for(var i of p){
+            i.addEventListener('dragstart',(e)=>{
+                dragItem=e.target;
+                setTimeout(()=>e.target.style.display="block",0);
+                e.target.style.backgroundColor="brown";
+            });
+            i.addEventListener('dragend',(e)=>{
+                setTimeout(()=>e.target.display="block",0);
+                dragItem=null;
+                e.target.style.backgroundColor="red";
+            });
+        }
+        for(var j of choice){
+            j.addEventListener('dragover',(e)=>{
+                e.preventDefault(e);
+            });
+            j.addEventListener('dragleave',()=>{
+                
+            });
+            j.addEventListener('dragenter',(e)=>{
+                e.preventDefault(e);
+            });
+            j.addEventListener('drop',(e)=>{
+                console.log(dragItem);
+                e.target.append(dragItem);
+                document.getElementsByTagName('h1')[0].style.visibility="visible";
+                setTimeout(()=>document.getElementsByTagName('h1')[0].style.visibility="hidden",500);
+            });
+        }
+        function reset(){
+            location.reload();
+        }
+    </script>
+</html>
